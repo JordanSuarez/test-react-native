@@ -1,13 +1,25 @@
 import React from "react";
 import { useFormik } from "formik";
-import firebase from "firebase";
 
 import Form from "../../components/Form/Form";
+import { LOGIN } from "../../navigation/constant";
 
 import inputsProps from "./helpers/inputProps";
 import RegisterSchema from "./helpers/RegisterSchema";
 
-export default function Register(): JSX.Element {
+type Props = {
+  userRegister: (
+    name: string,
+    email: string,
+    password: string
+  ) => Promise<void>;
+  navigation: string[];
+};
+
+export default function Register({
+  userRegister,
+  navigation,
+}: Props): JSX.Element {
   const {
     handleChange,
     handleBlur,
@@ -24,25 +36,11 @@ export default function Register(): JSX.Element {
   });
 
   const onSubmit = () => {
-    const { email, password, name } = values;
-
-    firebase
-      .auth()
-      .createUserWithEmailAndPassword(email, password)
-      .then(() => {
-        firebase
-          .firestore()
-          .collection("users")
-          .doc(firebase.auth().currentUser?.uid)
-          .set({
-            name,
-            email,
-          });
-      })
-      .catch((error) => {
-        console.log(error);
-      })
-      .finally(() => setSubmitting(false));
+    const { name, email, password } = values;
+    userRegister(name, email, password).then(() => {
+      navigation.push(LOGIN);
+    });
+    setSubmitting(false);
   };
 
   return (

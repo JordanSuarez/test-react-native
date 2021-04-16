@@ -4,7 +4,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import * as React from "react";
 
 import { RegisterParamList } from "../../../types";
-import RegisterScreen from "../Register";
+import RegisterScreen from "../index";
 
 const RegisterStack = createStackNavigator<RegisterParamList>();
 

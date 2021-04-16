@@ -9,11 +9,13 @@ import { RegisterNavigator } from "../screens/Register/config/RegisterNavigator"
 import { LoginNavigator } from "../screens/Login/config/LoginNavigator";
 import { TabOneNavigator } from "../screens/TabOne/config/TabOneNavigator";
 
+import { REGISTER, HOME, LOGIN } from "./constant";
+
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
 export default function BottomTabNavigator({ isLogged = false }) {
   const colorScheme = useColorScheme();
-  const initialRoute = isLogged ? "TabOne" : "Register";
+  const initialRoute = isLogged ? HOME : REGISTER;
 
   return (
     <BottomTab.Navigator
@@ -22,7 +24,7 @@ export default function BottomTabNavigator({ isLogged = false }) {
     >
       {isLogged ? (
         <BottomTab.Screen
-          name="TabOne"
+          name={HOME}
           component={TabOneNavigator}
           options={{
             tabBarIcon: ({ color }) => (
@@ -33,7 +35,7 @@ export default function BottomTabNavigator({ isLogged = false }) {
       ) : (
         <>
           <BottomTab.Screen
-            name="Register"
+            name={REGISTER}
             component={RegisterNavigator}
             options={{
               tabBarIcon: ({ color }) => (
@@ -42,7 +44,7 @@ export default function BottomTabNavigator({ isLogged = false }) {
             }}
           />
           <BottomTab.Screen
-            name="Login"
+            name={LOGIN}
             component={LoginNavigator}
             options={{
               tabBarIcon: ({ color }) => (

@@ -1,0 +1,7 @@
+export const USER_STATE_CHANGE = "USER_STATE_CHANGE";
+export const USER_REGISTERED = "USER_REGISTERED";
+export const USER_LOGIN = "USER_LOGIN";
+export const USER_LOGGED = "USER_LOGGED";
+export const USER_LOGOUT = "USER_LOGOUT";
+
+export const USER_CLEAR_DATA = "USER_CLEAR_DATA";

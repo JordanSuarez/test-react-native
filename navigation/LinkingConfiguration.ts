@@ -1,5 +1,7 @@
 import * as Linking from "expo-linking";
 
+import { HOME, LOGIN, REGISTER } from "./constant";
+
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
   prefixes: [Linking.makeUrl("/")],
@@ -9,22 +11,17 @@ export default {
         screens: {
           Register: {
             screens: {
-              RegisterScreen: "register",
+              RegisterScreen: REGISTER,
             },
           },
           Login: {
             screens: {
-              LoginScreen: "login",
+              LoginScreen: LOGIN,
             },
           },
-          TabOne: {
+          Home: {
             screens: {
-              TabOneScreen: "one",
-            },
-          },
-          TabTwo: {
-            screens: {
-              TabTwoScreen: "two",
+              HomeScreen: HOME,
             },
           },
         },
