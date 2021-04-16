@@ -14,31 +14,28 @@ export function clearData() {
 }
 
 export function userRegister(name: string, email: string, password: string) {
-  return (dispatch: Dispatch<AnyAction>) => {
-    return new Promise((resolve, reject) => {
-      firebase
-        .auth()
-        .createUserWithEmailAndPassword(email, password)
-        .then(() => {
-          firebase
-            .firestore()
-            .collection("users")
-            .doc(firebase.auth().currentUser?.uid)
-            .set({
-              name,
-              email,
-            });
-          // TODO dispatch toast success instead of user_registered
-          dispatch({ type: USER_REGISTERED });
-          resolve();
-        })
-        .catch((err) => /* TODO dispatch toast error */ console.log(err, reject))
-    });
+  return async (dispatch: Dispatch<AnyAction>) => {
+    await firebase
+      .auth()
+      .createUserWithEmailAndPassword(email, password)
+      .then(() => {
+        firebase
+          .firestore()
+          .collection("users")
+          .doc(firebase.auth().currentUser?.uid)
+          .set({
+            name,
+            email,
+          });
+        // TODO dispatch toast success
+        return dispatch({ type: USER_REGISTERED });
+      })
+      .catch(() => /* TODO dispatch toast error */ Promise.reject());
   };
 }
 
 export function userLogin(email: string, password: string) {
-    // https://docs.expo.io/guides/authentication/#storing-data
+  // https://docs.expo.io/guides/authentication/#storing-data
   // return (dispatch: Dispatch<AnyAction>) => {
   //   firebase
   //     .auth()
