@@ -1,8 +1,9 @@
-import { StatusBar } from "expo-status-bar";
 import React from "react";
+import { StatusBar } from "expo-status-bar";
 import { SafeAreaProvider } from "react-native-safe-area-context";
-import { useSharedValue } from "react-native-reanimated";
+import * as firebase from "firebase/app";
 
+import firebaseConfig from "./firebase/firebaseConfig";
 import useCachedResources from "./hooks/useCachedResources";
 import useColorScheme from "./hooks/useColorScheme";
 import Navigation from "./navigation";
@@ -11,7 +12,9 @@ export default function App() {
   const isLoadingComplete = useCachedResources();
   const colorScheme = useColorScheme();
 
-  const width = useSharedValue(0);
+  if (firebase.apps.length === 0) {
+    firebase.initializeApp(firebaseConfig);
+  }
 
   if (!isLoadingComplete) {
     return null;
